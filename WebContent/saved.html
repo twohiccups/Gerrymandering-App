@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<HTML>
+  <head>
+    <style>
+      ul {
+        background-color: LemonChiffon;
+      }
+      span {
+        padding: 10px;
+        padding-left: 40px;
+        padding-right: 40px;
+        display: inline-flex;
+      }
+    </style>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- GoogleAPI jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Our stylesheet -->
+    <link rel="stylesheet" type="text/css" href="Resources/Styles/style.css">
+
+    <title>Saved Maps</title>
+  </head>
+
+  <body style="font-size: 22px;">
+    <div id="info">
+      <h1 class="title">Saved Maps</h1>
+
+      <ul id="fileslist">
+        <li><span>myMap.json</span> <span>12/18/18</span> <span><button class="btn-lg btn-primary">LOAD</button></span> <span><button class="btn-lg btn-danger">DELETE</button></span></li>
+      </ul>
+
+
+      <h3><a href="map.html"><- Back to home page.</a></h3>
+    </div>
+
+  </body>
+  <script>
+  var fileToLoad = null;
+  var filesToDelete = [];
+
+
+  $(document).ready(function() {
+		$.ajax({
+			url : 'getfiles',
+			dataType : 'json',
+			success : function(response) {
+				// populate table with response Values
+        var inner = "";
+
+        response.forEach(filename => {
+          inner += "<li><span>" + filename + "</span> <span>12/18/18</span> <span><button class='btn-lg btn-primary' onclick='load(" + filename + ");'>LOAD</button></span> <span><button class='btn-lg btn-danger' onclick='deleteFile(" + filename + ");'>DELETE</button></span></li>";
+        });
+
+        document.getElementById("fileslist").innerHTML = inner;
+			}
+		});
+});
+
+
+    // function handleCheck(checkbox){
+    //   if (checkbox.checked == true) {
+    //     if (fileToLoad == null) fileToLoad = checkbox.value;
+    //     filesToDelete.push(checkbox.value);
+    //     console.log(filesToDelete);
+    //     console.log("added " + checkbox.value);
+    //   } else {
+    //     if (fileToLoad == checkbox.value) fileToLoad = null;
+    //     filesToDelete.splice(filesToDelete.indexOf(checkbox.value), 1);
+    //     console.log("removed " + checkbox.value);
+    //     console.log(filesToDelete);
+    //   }
+    // }
+  </script>
+  <script src="Resources/Scripts/map.js"></script>
+  <script src="Resources/Scripts/actions.js"></script>
+
+</HTML>
